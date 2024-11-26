@@ -30,8 +30,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    //start implementing recycler view
+    //Step 1: Declare RecyclerView
     RecyclerView recyclerView;
+
     List<MyObject> myObjectList;
     MyAdapter adapter ;
 
@@ -39,30 +41,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //step 2: find recycler view
         recyclerView = findViewById(R.id.recycler_view);
+        //step 10: Set layout manager
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //step 11: Initialise list
         myObjectList = new ArrayList<>();
         adapter  = new MyAdapter(myObjectList);
+        //step 12: Set adapter to recycler view
         recyclerView.setAdapter(adapter);
+        //step 9: Fetch data
         fetchData();
     }
 
    private void fetchData(){
     String url = "https://fakestoreapi.com/products";
-
+    //step 3: Create request
     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        //step 4: Handle response
         @Override
         public void onResponse(JSONArray response) {
+            //step 5: Parse response
             parseResponse(response);
             Toast.makeText(MainActivity.this, "Data fetched", Toast.LENGTH_SHORT).show();
         }
     }, new Response.ErrorListener() {
+        //step 7: Handle error
         @Override
         public void onErrorResponse(VolleyError error) {
             Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
         }
     });
-
+    //step 8: Add request to queue
        RequestQueue requestQueue = Volley.newRequestQueue(this);
        requestQueue.add(jsonArrayRequest);
     }
@@ -79,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 String image = jsonObject.getString("image");
                 Log.i(TAG, "This is an info log message."+ image);
                 MyObject myobject = new MyObject(id, title, price,description,category,image);
+                //step 6: Add data to list
                 myObjectList.add(myobject);
             }
             adapter.notifyDataSetChanged();

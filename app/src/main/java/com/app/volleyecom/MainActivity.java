@@ -1,7 +1,10 @@
 package com.app.volleyecom;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 import android.util.Log;
+import android.util.LogPrinter;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -65,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void parseResponse(JSONArray response){
-        Log.d("res len", String.format("parseResponse: %d", response.length()));
         try{
             for(int i = 0; i< response.length(); i++){
                 JSONObject jsonObject = response.getJSONObject(i);
@@ -75,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 String category  = jsonObject.getString("category");
                 String price  = jsonObject.getString("price");
                 String image = jsonObject.getString("image");
-                MyObject myobject = new MyObject(id, title, description, price,image,category);
+                Log.i(TAG, "This is an info log message."+ image);
+                MyObject myobject = new MyObject(id, title, price,description,category,image);
                 myObjectList.add(myobject);
             }
             adapter.notifyDataSetChanged();

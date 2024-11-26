@@ -1,5 +1,6 @@
 package com.app.volleyecom;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +31,20 @@ public class MyAdapter extends  RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-        MyObject object  = myObjectList.get(position);
+        MyObject object = myObjectList.get(position);
+
+        // Debugging: Log the URL
+        Log.d("ImageURL", "URL of photo: " + object.getImage());
         holder.title.setText(object.getTitle());
         holder.desc.setText(object.getDescription());
         holder.price.setText(String.valueOf(object.getPrice()));
-        Picasso.get().load(object.getimage()).into(holder.imageView);
+        // Load image with Picasso
+        Picasso.get()
+                .load(object.getImage())
+                .into(holder.imageView);
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -57,7 +66,6 @@ public class MyAdapter extends  RecyclerView.Adapter<MyAdapter.MyViewHolder>{
             price  = itemView.findViewById(R.id.price);
             imageView  = itemView.findViewById(R.id.item_image);
         }
-
 
     }
 }

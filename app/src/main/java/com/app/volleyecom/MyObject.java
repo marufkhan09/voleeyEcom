@@ -18,6 +18,7 @@ public class MyObject {
         this.image = image;
     }
 
+
     public int getId() {
         return id;
     }
@@ -58,11 +59,11 @@ public class MyObject {
         this.category = category;
     }
 
-    public String getimage() {
+    public String getImage() {
         return image;
     }
 
-    public void setimage(String image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }
